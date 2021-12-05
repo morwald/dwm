@@ -21,7 +21,7 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "₁", "₂", "₃", "₄", "₅", "₆", "₇" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -47,7 +47,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -66,27 +66,25 @@ static const char *termcmd[]  = { "st", NULL };
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-		{ "font",               STRING,  &font },
-		{ "dmenufont",          STRING,  &dmenufont },
-		{ "normbgcolor",        STRING,  &normbgcolor },
-		{ "normbordercolor",    STRING,  &normbordercolor },
-		{ "normfgcolor",        STRING,  &normfgcolor },
-		{ "selbgcolor",         STRING,  &selbgcolor },
-		{ "selbordercolor",     STRING,  &selbordercolor },
-		{ "selfgcolor",         STRING,  &selfgcolor },
-		{ "borderpx",          	INTEGER, &borderpx },
-		{ "snap",          		INTEGER, &snap },
-		{ "showbar",          	INTEGER, &showbar },
-		{ "topbar",          	INTEGER, &topbar },
-		{ "nmaster",          	INTEGER, &nmaster },
-		{ "resizehints",       	INTEGER, &resizehints },
-		{ "mfact",      	 	FLOAT,   &mfact },
+	{ "font",       STRING, &font },
+	{ "font",       STRING, &dmenufont },
+	{ "color7",     STRING, &normfgcolor },
+	{ "color0",     STRING, &normbgcolor },
+	{ "color8",     STRING,&normbordercolor },
+	{ "color4",     STRING, &selfgcolor },
+	{ "color0",     STRING, &selbgcolor },
+	{ "color8",     STRING, &selbordercolor },
 };
+
+static const char *web[] = { "qutebrowser", NULL };
+static const char *pdfs[] = { "zathura", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_o,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = web } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = pdfs } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -96,7 +94,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -108,6 +106,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,						XK_e,	   spawn,		   SHCMD("st -e neomutt") },
+	{ MODKEY,						XK_n,	   spawn,		   SHCMD("st -e ncmpcpp") },
+	{ MODKEY|ShiftMask,			    XK_w,	   spawn,		   SHCMD("passmenu") },
+	{ MODKEY|ShiftMask,			    XK_d,	   spawn,		   SHCMD("dunstctl close") },
+    { MODKEY|ShiftMask,				XK_p,	   spawn,		   SHCMD("mpc toggle") },
+    { MODKEY|ShiftMask,				XK_Left,   spawn,		   SHCMD("mpc prev") },
+	{ MODKEY|ShiftMask,				XK_Right,  spawn,		   SHCMD("mpc next") },
+	{ MODKEY|ShiftMask,				XK_r,	   spawn,		   SHCMD("mpc repeat") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -115,8 +121,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
 	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
