@@ -3,6 +3,7 @@
 ## Features
 
 * configure colors through xresources
+* live reload of xresources possible
 * icons (Font Awesome 6) for tags
 * gaps between windows
 * some custom keybindings

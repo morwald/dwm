@@ -252,6 +252,7 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 static void load_xresources(void);
+static void livereload_xres(const Arg *arg);
 static void resource_load(XrmDatabase db, char *name, enum resource_type rtype, void *dst);
 
 /* variables */
@@ -2181,6 +2182,20 @@ load_xresources(void)
 	for (p = resources; p < resources + LENGTH(resources); p++)
 		resource_load(db, p->name, p->type, p->dst);
 	XCloseDisplay(display);
+}
+
+void
+livereload_xres(const Arg *arg)
+{
+	load_xresources();
+	unsigned int i;
+
+    for (i = 0; i < LENGTH(colors); i++) {
+		scheme[i] = drw_scm_create(drw, colors[i], 3);
+	}
+
+    focus(NULL);
+    arrange(NULL);
 }
 
 int
