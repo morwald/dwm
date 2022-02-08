@@ -82,7 +82,11 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
+static const char *neomutt[]  = { "st", "-t", "neomutt", "-e", "tmux", "new-session", "neomutt", NULL };
+static const char *ncmpcpp[]  = { "st", "-t", "ncmpcpp", "-e", "tmux", "new-session", "ncmpcpp", NULL };
+static const char *web[] = { "qutebrowser", NULL };
+static const char *pdfs[] = { "zathura", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -98,13 +102,13 @@ ResourcePref resources[] = {
 	{ "color8",     STRING, &selbordercolor },
 };
 
-static const char *web[] = { "qutebrowser", NULL };
-static const char *pdfs[] = { "zathura", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_o,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = neomutt } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = ncmpcpp } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = web } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = pdfs } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -133,8 +137,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_e,      spawn,          SHCMD("st -e neomutt") },
-	{ MODKEY,                       XK_n,      spawn,          SHCMD("st -e ncmpcpp") },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("passmenu") },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dunstctl close") },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("mpc toggle") },
