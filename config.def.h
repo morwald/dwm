@@ -138,6 +138,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("passmenu") },
+	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("$HOME/.scripts/colorscheme") },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dunstctl close") },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("mpc toggle") },
 	{ MODKEY|ShiftMask,             XK_Left,   spawn,          SHCMD("mpc prev") },
