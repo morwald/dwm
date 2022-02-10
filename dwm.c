@@ -548,7 +548,7 @@ clientmessage(XEvent *e)
 				|| (cme->data.l[0] == 2 /* _NET_WM_STATE_TOGGLE */ && !c->isfullscreen)));
 	} else if (cme->message_type == netatom[NetActiveWindow]) {
 		if (c != selmon->sel && !c->isurgent)
-			seturgent(c, 1);
+			seturgent(c, 0);
 	}
 }
 
@@ -2194,8 +2194,16 @@ livereload_xres(const Arg *arg)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
 	}
 
-    focus(NULL);
-    arrange(NULL);
+	Monitor *m;
+
+	for (m = mons; m; m = m->next) {
+		for(Client *c = m->clients; c; c = c->next) {
+			XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
+		}
+	}
+
+	focus(NULL);
+	arrange(NULL);
 }
 
 int
