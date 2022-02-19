@@ -82,9 +82,9 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
-static const char *neomutt[]  = { "st", "-t", "neomutt", "-e", "tmux", "new-session", "neomutt", NULL };
-static const char *ncmpcpp[]  = { "st", "-t", "ncmpcpp", "-e", "tmux", "new-session", "ncmpcpp", NULL };
+static const char *termcmd[] = { "st", "-e", "tmux", NULL };
+static const char *neomutt[] = { "st", "-t", "neomutt", "-e", "tmux", "new-session", "neomutt", NULL };
+static const char *ncmpcpp[] = { "st", "-t", "ncmpcpp", "-e", "tmux", "new-session", "ncmpcpp", NULL };
 static const char *web[] = { "qutebrowser", NULL };
 static const char *pdfs[] = { "zathura", NULL };
 
@@ -119,10 +119,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY|Mod4Mask,              XK_g,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_g,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
+	{ MODKEY,                       XK_g,      incrgaps,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_g,      incrgaps,       {.i = -1 } },
+	{ MODKEY,                       XK_u,      togglegaps,     {0} },
+	{ MODKEY|ShiftMask,             XK_u,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_Tab,    livereload_xres,{0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
@@ -138,12 +138,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("passmenu") },
+	{ MODKEY,                       XK_p,      spawn,          SHCMD("$HOME/.scripts/powermenu") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("$HOME/.scripts/colorscheme") },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dunstctl close") },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("mpc toggle") },
 	{ MODKEY|ShiftMask,             XK_Left,   spawn,          SHCMD("mpc prev") },
 	{ MODKEY|ShiftMask,             XK_Right,  spawn,          SHCMD("mpc next") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("mpc repeat") },
+	{ MODKEY,                 0x0000ff61,      spawn,          SHCMD("$HOME/.scripts/screenshot") },
+	{ MODKEY|ShiftMask,       0x0000ff61,      spawn,          SHCMD("$HOME/.scripts/screenshot -s") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
