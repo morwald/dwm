@@ -26,7 +26,7 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "₁", "₂", "₃", "₄", "₅", "₆", "₇" };
+static const char *tags[] = { "₁", "₂", "₃", "₄", "₅", "₆", "₇", "₈" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -125,7 +125,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_u,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_Tab,    livereload_xres,{0} },
-	{ MODKEY,                       XK_q,      killclient,     {0} },
+	{ MODKEY,                       XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
@@ -154,6 +154,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
 	TAGKEYS(                        XK_7,                      6)
+	TAGKEYS(                        XK_8,                      7)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
